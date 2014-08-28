@@ -1,6 +1,6 @@
 # Sanction
 
-Sanction is a permissions manager specifically for managing nested permission sets, with varying scopes or roles. Having found nothing that fit our specific problem domain we wrote this. The idea is that object relationships are stored as a Hash, and persisted as JSON, and Sanction can then read that permission graph, and return you a true or false for your resource, or scope for that resource.
+Sanction is a permissions manager specifically for managing nested permission sets, with varying scopes or roles. Having found nothing that fit our specific problem domain we at Board Intelligence wrote this. The idea is that object relationships are stored as a Hash, and persisted as JSON, and Sanction can then read that permission graph, and return you a true or false for your resource, or scope for that resource.
 
 ## Installation
 
