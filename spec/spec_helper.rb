@@ -1,4 +1,5 @@
 require 'sanction'
+require 'awesome_print'
 
 require 'minitest/spec'
 require 'minitest/autorun'
@@ -6,14 +7,26 @@ require 'minitest/pride'
 
 class Bookcase
   attr_accessor :id
+
+  def initialize(id)
+    @id = id
+  end
 end
 
 class Shelf
   attr_accessor :id
+
+  def initialize(id)
+    @id = id
+  end
 end
 
 class Pack
   attr_accessor :id
+
+  def initialize(id)
+    @id = id
+  end
 end
 
 
@@ -39,6 +52,18 @@ PERMISSIONS = {
           type: 'bookcase',
           scope: ['read'],
           subjects: [
+            {
+              id: 7,
+              mode: 'blacklist',
+              type: 'shelf',
+              scope: ['manage', 'read'],
+              subjects: [
+                {
+                  id: 8,
+                  type: 'pack'
+                }
+              ]
+            },
             {
               id: 4,
               mode: 'whitelist',

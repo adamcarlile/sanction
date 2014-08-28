@@ -8,7 +8,7 @@ require 'sanction/tree'
 require 'sanction/node'
 require 'sanction/blacklist'
 require 'sanction/whitelist'
-require 'sanction/gatekeeper'
+require 'sanction/permission'
 
 module Sanction
 

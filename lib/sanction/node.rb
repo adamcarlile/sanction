@@ -20,8 +20,8 @@ module Sanction
     end
 
     def add_subject(hash)
-      mode = hash[:mode] || :blacklist
-      children << "sanction/#{mode}".classify.constantize.new(hash, self)
+      mode_class = hash[:mode] || :blacklist
+      children << "sanction/#{mode_class}".classify.constantize.new(hash, self)
     end
 
     def [](key)
@@ -29,13 +29,15 @@ module Sanction
     end
 
     def find(type, id)
+      out = nil
       walk do |child|
-        return child if (child.type?(type) && child.id?(id))
+        out = child if (child.type?(type) && child.id?(id))
       end
+      out
     end
 
-    def has_scope? scope
-      @scope.include? scope.to_sym
+    def has_scope? scope_symbol
+      scope.include? scope_symbol.to_sym
     end
 
     def type?(type)
