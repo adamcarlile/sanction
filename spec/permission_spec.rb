@@ -128,6 +128,18 @@ describe Sanction::Permission do
 
   end
 
+  describe "with an incorrect object graph with a whitelisted incorrect parent" do
+    let(:permissions_hash)  { PERMISSIONS }
+    let(:bookcase)          { Bookcase.new(2) }
+    let(:shelf)             { Shelf.new(6) }
+    let(:predicates)        { [bookcase, shelf] }
+
+    it 'should not allow the shelf to be permitted' do
+      permission.permitted?.must_equal false
+    end
+
+  end
+
   describe "With missing blacklist permissions" do
     let(:permissions_hash) { PERMISSIONS }
     let(:bookcase)    { Bookcase.new(1) }
