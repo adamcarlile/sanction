@@ -19,13 +19,32 @@ module Sanction
       }.reject { |k, v| v.blank? }
     end
 
+    # Returns the new graph with the switched mode
+    def change_type! type
+      hash = to_hash
+      klass = "sanction/#{type}".classify.constantize
+      if root?
+        klass.new(hash)
+      else
+        node = klass.new(hash, parent)
+        parent.children << node
+        unlink
+        node.root
+      end
+    end
+
     def add_subject(hash)
       mode_class = hash[:mode] || :blacklist
       children << "sanction/#{mode_class}".classify.constantize.new(hash, self)
     end
 
+    # Virtual
+    def array_class
+      raise NotImplementedError
+    end
+
     def [](key)
-      SearchableArray.new(subjects.select {|x| x.type?(key) })
+      array_class.new(subjects.select {|x| x.type?(key) })
     end
 
     def find(type, id)
@@ -45,7 +64,7 @@ module Sanction
     end
 
     def id?(id)
-      @id == id.to_i
+      @id == id
     end
 
     def scope
@@ -58,6 +77,10 @@ module Sanction
 
     def children?
       children.any?
+    end
+
+    def children
+      @children ||= array_class.new
     end
 
     alias :subjects :children
