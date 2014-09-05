@@ -22,6 +22,7 @@ module Sanction
     end
 
     def permitted?
+      return false if permitted_path.blank?
       permitted_path.all?
     end
 
