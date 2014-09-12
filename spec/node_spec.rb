@@ -41,8 +41,8 @@ describe Sanction::Node do
 
     end
 
-    it 'should return nil for a missing id and type' do
-      permissions.find('test', 5).must_be_nil
+    it 'should return root for a missing id and type' do
+      permissions.find('test', 5).root?.must_equal true
     end
   end
 

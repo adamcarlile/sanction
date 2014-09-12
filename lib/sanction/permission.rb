@@ -14,11 +14,14 @@ module Sanction
           predicate:  object,
           node:       @graph.find(object.class.to_s.demodulize.underscore.to_sym, object.id)
         }
-      end.reject { |x| x[:node].blank? }
+      end.reject { |x| x[:node].root? }
     end
 
     def permitted_path
-      @permitted_path ||= path.map {|x| x[:node].parent.permitted?(x[:predicate].class.to_s.demodulize.underscore.to_sym, x[:predicate].id) }
+      @permitted_path ||= path.map do |x| 
+        node = x[:node].root? ? x[:node] : x[:node].parent 
+        node.permitted?(x[:predicate].class.to_s.demodulize.underscore.to_sym, x[:predicate].id)
+      end
     end
 
     def permitted?

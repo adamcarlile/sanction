@@ -48,7 +48,7 @@ module Sanction
     end
 
     def find(type, id)
-      out = nil
+      out = root
       walk do |child|
         out = child if (child.type?(type) && child.id?(id))
       end
