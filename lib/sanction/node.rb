@@ -22,7 +22,7 @@ module Sanction
     # Returns the new graph with the switched mode
     def change_type! type
       hash = to_hash
-      klass = "sanction/#{type}".classify.constantize
+      klass = "sanction/#{type}/node".classify.constantize
       if root?
         klass.new(hash)
       else
@@ -35,7 +35,7 @@ module Sanction
 
     def add_subject(hash)
       mode_class = hash[:mode] || :blacklist
-      children << "sanction/#{mode_class}".classify.constantize.new(hash, self)
+      children << "sanction/#{mode_class}/node".classify.constantize.new(hash, self)
     end
 
     # Virtual
@@ -44,7 +44,10 @@ module Sanction
     end
 
     def [](key)
-      array_class.new(subjects.select {|x| x.type?(key) })
+      array_class.new(subjects.select {|x| x.type?(key) }).tap do |x| 
+        x.key = key
+        x.parent = self
+      end
     end
 
     def find(type, id)

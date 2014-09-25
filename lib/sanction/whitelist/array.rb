@@ -1,6 +1,6 @@
 module Sanction
-  class SearchableArray
-    class Whitelist < SearchableArray
+  module Whitelist
+    class Array < Sanction::SearchableArray
 
       def allowed_ids
         entries.map {|x| x.id}
@@ -10,16 +10,16 @@ module Sanction
         false
       end
 
-      def type
-        entries.map {|x| x.type}.uniq.first
-      end
-
       def whitelist?
         true
       end
 
       def denied_ids
         []
+      end
+
+      def null_node_class
+        Sanction::Blacklist::Node
       end
 
     end
