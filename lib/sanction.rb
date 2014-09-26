@@ -13,8 +13,10 @@ module Sanction
   autoload :Permission,      'sanction/permission'
 
   module Whitelist
-    autoload :Array,  'sanction/whitelist/array'
-    autoload :Node,   'sanction/whitelist/node'
+    autoload :Array,     'sanction/whitelist/array'
+    autoload :Node,      'sanction/whitelist/node'
+    autoload :NullArray, 'sanction/whitelist/null_array'
+    autoload :NullNode,  'sanction/whitelist/null_node'
   end
 
   module Blacklist
@@ -31,14 +33,53 @@ module Sanction
   end
 
   def hash
-    {
+     {
       mode: 'whitelist',
       scope: ['manage', 'read'],
       subjects: [
         {
-          id: 6,
+          id: 1,
+          mode: 'blacklist',
           type: 'bookcase',
-          scope: []
+          scope: [],
+          subjects: [
+            {
+              id: 6,
+              type: 'shelf',
+              scope: ['manage']
+            }
+          ]
+        },{
+          id: 2,
+          mode: 'whitelist',
+          type: 'bookcase',
+          scope: ['read'],
+          subjects: [
+            {
+              id: 7,
+              mode: 'blacklist',
+              type: 'shelf',
+              scope: ['manage', 'read'],
+              subjects: [
+                {
+                  id: 8,
+                  type: 'pack'
+                }
+              ]
+            },
+            {
+              id: 4,
+              mode: 'whitelist',
+              type: 'shelf',
+              subjects: [
+                {
+                  id: 5,
+                  type: 'pack',
+                  scope: ['manage', 'read']
+                }
+              ]
+            }
+          ]
         }
       ]
     }

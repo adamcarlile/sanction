@@ -19,6 +19,10 @@ module Sanction
       }.reject { |k, v| v.blank? }
     end
 
+    def concrete?
+      true
+    end
+
     # Returns the new graph with the switched mode
     def change_type! type
       hash = to_hash
@@ -43,8 +47,13 @@ module Sanction
       raise NotImplementedError
     end
 
+    def null_array_class
+      raise NotImplementedError
+    end
+
     def [](key)
-      array_class.new(subjects.select {|x| x.type?(key) }).tap do |x| 
+      klass = subjects.select {|x| x.type?(key) }.any? ? array_class : null_array_class
+      klass.new(subjects.select {|x| x.type?(key) }).tap do |x| 
         x.key = key
         x.parent = self
       end

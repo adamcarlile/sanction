@@ -3,20 +3,16 @@ module Sanction
     class NullNode < Sanction::Blacklist::Node
 
       def permitted?
-        true
-      end
-
-      def whitelist?
-        false
-      end
-
-      def blacklist?
-        true
+        a = ancestors.map(&:permitted?)
+        a << false 
+        a.all?
       end
 
       def array_class
-        Sanction::Blacklist::NullArray
+        Sanction::Whitelist::NullArray
       end
+
+      alias :null_array_class :array_class
 
     end
   end

@@ -6,6 +6,10 @@ module Sanction
         entries.map {|x| x.id}
       end
 
+      def permitted?
+        true
+      end
+
       def blacklist?
         false
       end
@@ -19,7 +23,7 @@ module Sanction
       end
 
       def null_node_class
-        Sanction::Blacklist::Node
+        Sanction::Whitelist::NullNode
       end
 
     end

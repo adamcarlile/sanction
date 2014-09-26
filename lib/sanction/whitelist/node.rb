@@ -2,7 +2,7 @@ module Sanction
   module Whitelist
     class Node < Sanction::Node
 
-      def permitted?(type, id)
+      def permitted?
         true
       end
 
@@ -16,6 +16,10 @@ module Sanction
 
       def array_class
         Sanction::Whitelist::Array
+      end
+
+      def null_array_class
+        Sanction::Whitelist::NullNode
       end
 
     end

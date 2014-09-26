@@ -3,7 +3,7 @@ module Sanction
     class Node < Sanction::Node
 
       def permitted?
-        false        
+        root? ? false : @parent.children.permitted?
       end
 
       def whitelist?
@@ -16,6 +16,10 @@ module Sanction
 
       def array_class
         Sanction::Blacklist::Array
+      end
+
+      def null_array_class
+        Sanction::Blacklist::NullArray
       end
 
     end

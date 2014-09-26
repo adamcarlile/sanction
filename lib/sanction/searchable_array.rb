@@ -4,11 +4,7 @@ module Sanction
     attr_accessor :key, :parent
 
     def [](index)
-      if entries.detect {|x| x.id == index}
-        entries.detect {|x| x.id == index}
-      else
-        null_node_class.new({id: index, type: key, scope: []}, @parent)
-      end
+      entries.detect {|x| x.id == index} || null_node_class.new({id: index, type: key, scope: []}, @parent)
     end
 
     def type

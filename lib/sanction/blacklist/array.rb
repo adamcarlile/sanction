@@ -6,6 +6,10 @@ module Sanction
         []
       end
 
+      def permitted?
+        false
+      end
+
       def blacklist?
         true
       end
@@ -19,7 +23,7 @@ module Sanction
       end
 
       def null_node_class
-        Sanction::Blacklist::Node
+        Sanction::Blacklist::NullNode
       end
 
     end
