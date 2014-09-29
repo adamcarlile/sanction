@@ -32,59 +32,6 @@ module Sanction
     "sanction/#{hash[:mode]}/node".classify.constantize.new(hash)
   end
 
-  def hash
-     {
-      mode: 'whitelist',
-      scope: ['manage', 'read'],
-      subjects: [
-        {
-          id: 1,
-          mode: 'blacklist',
-          type: 'bookcase',
-          scope: [],
-          subjects: [
-            {
-              id: 6,
-              type: 'shelf',
-              scope: ['manage']
-            }
-          ]
-        },{
-          id: 2,
-          mode: 'whitelist',
-          type: 'bookcase',
-          scope: ['read'],
-          subjects: [
-            {
-              id: 7,
-              mode: 'blacklist',
-              type: 'shelf',
-              scope: ['manage', 'read'],
-              subjects: [
-                {
-                  id: 8,
-                  type: 'pack'
-                }
-              ]
-            },
-            {
-              id: 4,
-              mode: 'whitelist',
-              type: 'shelf',
-              subjects: [
-                {
-                  id: 5,
-                  type: 'pack',
-                  scope: ['manage', 'read']
-                }
-              ]
-            }
-          ]
-        }
-      ]
-    }
-  end
-
   def permission(permission, *predicates)
     Sanction::Permission.new(permission, *predicates)
   end
