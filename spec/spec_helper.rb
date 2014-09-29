@@ -21,6 +21,14 @@ class Shelf
   end
 end
 
+class User
+  attr_accessor :id
+
+  def initialize(id)
+    @id = id
+  end
+end
+
 class Pack
   attr_accessor :id
 

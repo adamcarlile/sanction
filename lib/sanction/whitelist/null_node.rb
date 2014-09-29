@@ -3,7 +3,7 @@ module Sanction
     class NullNode < Sanction::Blacklist::Node
 
       def permitted?
-        a = ancestors.map(&:permitted?)
+        a = ancestors.reject(&:root?).map(&:permitted?)
         a << false 
         a.all?
       end
