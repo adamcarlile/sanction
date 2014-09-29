@@ -179,7 +179,6 @@ describe Sanction::Permission do
         let(:predicates)  { [bookcase, shelf, pack] }
 
         it 'should not be permitted' do
-          binding.pry
           permission.permitted?.must_equal false
         end
 
