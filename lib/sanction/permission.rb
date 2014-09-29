@@ -12,7 +12,11 @@ module Sanction
       @path ||= begin
         path = @graph.root
         @predicates.each do |predicate|
-          path = path[predicate.class.to_s.demodulize.underscore.to_sym][predicate.id]
+          if predicate.is_a?(Class)
+            path = path[predicate.to_s.demodulize.underscore.to_sym]
+          else
+            path = path[predicate.class.to_s.demodulize.underscore.to_sym][predicate.id]
+          end
         end
         path
       end

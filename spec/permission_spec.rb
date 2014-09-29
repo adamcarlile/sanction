@@ -39,6 +39,15 @@ describe Sanction::Permission do
       permission.permitted_with_scope?(:read).must_equal true
     end
 
+    describe 'With a class predicate' do
+      let(:predicates) { [Shelf] }
+
+      it 'should not be permitted' do
+        permission.permitted?.must_equal false
+      end
+
+    end
+
   end
 
   describe "With simple blacklist permissions" do
@@ -63,6 +72,19 @@ describe Sanction::Permission do
 
     it 'should not be permitted for a scope of manage' do
       permission.permitted_with_scope?(:manage).must_equal false
+    end
+
+    describe 'With a class predicate not blacklisted' do
+      let(:predicates) { [Shelf] }
+
+      it 'should be permitted' do
+        permission.permitted?.must_equal true
+      end
+
+      it 'should be permitted with a scope of manage' do
+        permission.permitted_with_scope?(:manage).must_equal true
+      end
+
     end
 
   end

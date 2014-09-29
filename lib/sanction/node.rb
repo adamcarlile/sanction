@@ -15,7 +15,8 @@ module Sanction
         type: @type,
         mode: mode,
         scope: @scope,
-        subjects: subjects.map {|x| x.to_hash}
+        subjects: subjects.map {|x| x.to_hash},
+        resources: @resouces
       }.reject { |k, v| v.blank? }
     end
 
@@ -83,6 +84,11 @@ module Sanction
       @scope.blank? ? parent.scope : @scope
     end
 
+    def resources
+      return [] if (@resources.blank? && root?)
+      @resources.blank? ? parent.resources : @resources
+    end
+
     def mode
       raise NotImplementedError
     end
@@ -100,9 +106,11 @@ module Sanction
     private
 
       def process_hash(hash)
-        @id     = hash[:id]
-        @scope  = hash[:scope].map(&:to_sym) if hash[:scope]
-        @type   = hash[:type].to_sym if hash[:type]
+        @id         = hash[:id]
+        @scope      = hash[:scope].map(&:to_sym) unless hash[:scope].blank?
+        @type       = hash[:type].to_sym if hash[:type]
+        @resources  = []
+        @resources  += hash[:resources].map(&:to_sym) unless hash[:resources].blank?
         hash[:subjects].each { |subject| add_subject(subject) } unless hash[:subjects].blank?
       end
 

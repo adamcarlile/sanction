@@ -33,6 +33,7 @@ end
 PERMISSIONS = {
       mode: 'whitelist',
       scope: ['manage', 'read'],
+      resources: ['bookcase', 'shelf', 'pack', 'user'],
       subjects: [
         {
           id: 1,

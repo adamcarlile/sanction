@@ -3,7 +3,8 @@ module Sanction
     class NullArray < Sanction::Blacklist::Array
 
       def permitted?
-        @parent.permitted?
+        return false if wildcard_resource?
+        resources.include?(@key) ? false : true
       end
 
       def null_node_class
