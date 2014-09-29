@@ -14,6 +14,10 @@ module Sanction
         true
       end
 
+      def mode
+        'blacklist'
+      end
+
       def array_class
         Sanction::Blacklist::Array
       end

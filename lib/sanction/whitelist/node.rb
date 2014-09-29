@@ -14,6 +14,10 @@ module Sanction
         false
       end
 
+      def mode
+        'whitelist'
+      end
+
       def array_class
         Sanction::Whitelist::Array
       end

@@ -9,28 +9,21 @@ module Sanction
     end
 
     def path
-      @path ||= predicates.map do |object|
-        {
-          predicate:  object,
-          node:       @graph.find(object.class.to_s.demodulize.underscore.to_sym, object.id)
-        }
-      end.reject { |x| x[:node].root? }
-    end
-
-    def permitted_path
-      @permitted_path ||= path.map do |x| 
-        node = x[:node].root? ? x[:node] : x[:node].parent 
-        node.permitted?(x[:predicate].class.to_s.demodulize.underscore.to_sym, x[:predicate].id)
+      @path ||= begin
+        path = @graph.root
+        @predicates.each do |predicate|
+          path = path[predicate.class.to_s.demodulize.underscore.to_sym][predicate.id]
+        end
+        path
       end
     end
 
     def permitted?
-      return false if permitted_path.blank?
-      permitted_path.all?
+      path.permitted?
     end
 
     def permitted_with_scope?(scope)
-      permitted? && path.last[:node].has_scope?(scope)
+      permitted? && path.has_scope?(scope)
     end
 
   end

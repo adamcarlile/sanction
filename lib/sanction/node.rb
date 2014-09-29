@@ -84,7 +84,7 @@ module Sanction
     end
 
     def mode
-      self.class.to_s.demodulize.underscore
+      raise NotImplementedError
     end
 
     def children?
