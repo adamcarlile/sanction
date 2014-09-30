@@ -83,6 +83,10 @@ module Sanction
     def scope
       @scope.blank? ? parent.scope : @scope
     end
+    
+    def scope=(scope)
+      @scope = [scope].flatten.compact.map(&:to_sym)
+    end
 
     def resources
       return [] if (@resources.blank? && root?)
