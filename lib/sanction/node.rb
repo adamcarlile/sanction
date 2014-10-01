@@ -16,7 +16,7 @@ module Sanction
         mode: mode,
         scope: @scope,
         subjects: subjects.map {|x| x.to_hash},
-        resources: @resouces
+        resources: @resources
       }.reject { |k, v| v.blank? }
     end
 
@@ -91,6 +91,10 @@ module Sanction
     def resources
       return [] if (@resources.blank? && root?)
       @resources.blank? ? parent.resources : @resources
+    end
+
+    def resources=(resource)
+      @resources = [resource].flatten.compact.map(&:to_sym)
     end
 
     def mode

@@ -78,6 +78,49 @@ describe 'Nodes with resource restrictions' do
 
   end
 
+  describe 'none blacklisted resource type' do
+    let(:permissions_hash) do
+      {
+        mode: 'blacklist',
+        scope: ['manage', 'read'],
+        resources: ['bookcase'],
+        subjects: [
+          {
+            id: 6,
+            type: 'bookcase',
+            scope: []
+          }
+        ]
+      }
+    end
+
+    it 'should not return the bookcase ids' do
+      permission.path[:bookcase].denied_ids.must_equal [6]
+    end
+  end
+
+  describe 'none whitelisted resource type' do
+    let(:permissions_hash) do
+      {
+        mode: 'whitelist',
+        scope: ['manage', 'read'],
+        resources: [],
+        subjects: [
+          {
+            id: 6,
+            type: 'bookcase',
+            scope: []
+          }
+        ]
+      }
+    end
+
+    it 'should not return the bookcase ids' do
+      permission.path[:bookcase].allowed_ids.must_equal []
+    end
+
+  end
+
   describe 'blacklisted resources' do
     let(:permissions_hash) do
       {

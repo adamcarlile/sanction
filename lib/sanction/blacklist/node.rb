@@ -3,7 +3,7 @@ module Sanction
     class Node < Sanction::Node
 
       def permitted?
-        root? ? true : @parent.children.permitted?
+        root? ? true : (@parent[type].permitted? && @parent[type].allowed_ids.include?(id))
       end
 
       def whitelist?

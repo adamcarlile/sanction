@@ -1,6 +1,6 @@
 module Sanction
   module Whitelist
-    class NullNode < Sanction::Blacklist::Node
+    class NullNode < Sanction::Whitelist::Node
 
       def permitted?
         a = ancestors.reject(&:root?).map(&:permitted?)

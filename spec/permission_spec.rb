@@ -16,6 +16,7 @@ describe Sanction::Permission do
       {
         mode: 'whitelist',
         scope: ['manage', 'read'],
+        resources: ['bookcase'],
         subjects: [
           {
             id: 6,

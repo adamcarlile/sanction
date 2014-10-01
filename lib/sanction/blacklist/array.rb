@@ -7,7 +7,8 @@ module Sanction
       end
 
       def permitted?
-        false
+        return false if wildcard_resource?
+        resources.include?(@key) ? false : true
       end
 
       def blacklist?
