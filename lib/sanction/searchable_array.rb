@@ -4,7 +4,7 @@ module Sanction
     attr_accessor :key, :parent
 
     def [](index)
-      entries.detect {|x| x.id == index} || null_node_class.new({id: index, type: key, scope: []}, @parent)
+      entries.detect {|x| x.id == index} || wildcard_member || null_node_class.new({id: index, type: key, scope: []}, @parent)
     end
 
     def type
@@ -13,6 +13,10 @@ module Sanction
 
     def has_scope? scope
       @parent.has_scope? scope
+    end
+
+    def wildcard_member
+      entries.detect {|x| x.wildcarded? }
     end
 
     def wildcard_resource?

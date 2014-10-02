@@ -39,7 +39,7 @@ module Sanction
     end
 
     def add_subject(hash)
-      mode_class = hash[:mode] || :blacklist
+      mode_class = hash[:mode] || mode
       children << "sanction/#{mode_class}/node".classify.constantize.new(hash, self)
     end
 
@@ -103,6 +103,10 @@ module Sanction
 
     def children?
       children.any?
+    end
+
+    def wildcarded?
+      @id == '*'
     end
 
     def children
