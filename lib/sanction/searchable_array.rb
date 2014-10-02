@@ -19,6 +19,10 @@ module Sanction
       entries.detect {|x| x.wildcarded? }
     end
 
+    def wildcarded?
+      !!wildcard_member
+    end
+
     def wildcard_resource?
       resources.include?(:*)
     end

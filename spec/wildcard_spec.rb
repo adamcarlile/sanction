@@ -21,13 +21,17 @@ describe 'Wildcarding' do
         },
         {
           id: '*',
+          mode: 'blacklist',
           type: 'user',
           scope: ['manage', 'read'],
           subjects: [
             {
               id: '*',
               type: 'bookcase',
-              scope: ['read']
+              subjects: [
+                id: '1',
+                type: 'pack'
+              ]
             }
           ]
         }
@@ -48,13 +52,16 @@ describe 'Wildcarding' do
       let(:bookcase)   { Bookcase.new(121) }
       let(:predicates) { [user, bookcase] }
 
-      it 'should be permitted' do
-        permission.permitted?.must_equal true
+      it 'should not be permitted' do
+        permission.permitted?.must_equal false
       end
 
-      it 'should have read only' do
-        permission.permitted_with_scope?(:manage).must_equal false
-        permission.permitted_with_scope?(:read).must_equal true
+      describe 'with a pack' do
+        let(:pack) { Pack.new(1) }
+        let(:predicates) { [user, bookcase, pack] }
+        it 'should not be permitted' do
+          permission.permitted?.must_equal false
+        end
       end
 
     end
