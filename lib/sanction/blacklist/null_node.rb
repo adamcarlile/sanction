@@ -8,6 +8,10 @@ module Sanction
         a.all?
       end
 
+      def persisted?
+        false
+      end
+
       def array_class
         Sanction::Blacklist::NullArray
       end

@@ -9,6 +9,30 @@ describe 'application issues' do
   let(:predicates)        { [] }
   let(:permission)        { Sanction::Permission.new(permissions, *predicates)}
 
+  describe 'regular user with one allowed bookcase, but no allowed shelves' do
+    let(:permissions_hash) do
+      {
+        mode: "whitelist",
+        scope: [:read],
+        subjects: [
+          {
+            id: "948b9ace-784f-4326-aeb9-a2a0587d75b9", 
+            type: 'bookcase', 
+            mode: "whitelist", 
+            scope: [:read, :manage],
+            resources: []
+          }
+        ],
+        resources: [:bookcase]
+       }
+    end
+    let(:predicates) { [Bookcase.new('948b9ace-784f-4326-aeb9-a2a0587d75b9')] }
+
+    it 'should not allow access to any shelves' do
+      permission.path[:shelf].permitted?.must_equal false
+    end
+  end
+
   describe 'admin user with one banned bookcase' do
 
     let(:permissions_hash) do

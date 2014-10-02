@@ -3,8 +3,7 @@ module Sanction
     class Node < Sanction::Node
 
       def permitted?
-        return false if wildcarded? && @parent.blacklist?
-        return true  if wildcarded? && @parent.whitelist?
+        super
         root? ? true : (@parent[type].permitted? && @parent[type].allowed_ids.include?(id))
       end
 

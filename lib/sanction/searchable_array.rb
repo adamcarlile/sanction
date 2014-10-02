@@ -11,6 +11,10 @@ module Sanction
       key
     end
 
+    def ids_blank?
+      denied_ids.blank? && allowed_ids.blank?
+    end
+
     def has_scope? scope
       @parent.has_scope? scope
     end

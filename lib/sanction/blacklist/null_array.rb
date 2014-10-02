@@ -4,7 +4,12 @@ module Sanction
 
       def permitted?
         return false if wildcard_resource?
-        resources.include?(@key) ? false : true
+        return false if resources.include?(@key) && ids_blank?
+        return true if ids_blank?
+      end
+
+      def persisted?
+        false
       end
 
       def null_node_class

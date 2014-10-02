@@ -9,6 +9,11 @@ module Sanction
       process_hash(hash)
     end
 
+    def permitted?
+      return false if wildcarded? && @parent.blacklist?
+      return true  if wildcarded? && @parent.whitelist?
+    end
+
     def to_hash
       {
         id: @id,
@@ -20,7 +25,7 @@ module Sanction
       }.reject { |k, v| v.blank? }
     end
 
-    def concrete?
+    def persisted?
       true
     end
 

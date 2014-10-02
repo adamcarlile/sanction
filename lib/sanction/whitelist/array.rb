@@ -3,12 +3,14 @@ module Sanction
     class Array < Sanction::SearchableArray
 
       def allowed_ids
-        permitted? ? entries.map {|x| x.id} : []
+        (wildcard_resource? || resources.include?(@key)) ? entries.map {|x| x.id} : []
       end
 
       def permitted?
-        return true if wildcard_resource?
-        resources.include?(@key) ? true : false
+        return true  if wildcard_resource?
+        return false if ids_blank?
+        return true  if resources.include?(@key)
+        false
       end
 
       def blacklist?

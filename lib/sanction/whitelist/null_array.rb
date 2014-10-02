@@ -3,8 +3,13 @@ module Sanction
     class NullArray < Sanction::Whitelist::Array
 
       def permitted?
-        return true if wildcard_resource?
-        resources.include?(@key) ? true : false
+        return true  if wildcard_resource?
+        return true  if resources.include?(@key) && !ids_blank?
+        return false if ids_blank?
+      end
+
+      def persisted?
+        false
       end
 
       def null_node_class
