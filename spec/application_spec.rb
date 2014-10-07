@@ -31,6 +31,16 @@ describe 'application issues' do
     it 'should not allow access to any shelves' do
       permission.path[:shelf].permitted?.must_equal false
     end
+
+    describe "allowing a new shelf" do
+      before do
+        permission.path[:shelf][1234].allow!
+      end
+
+      it 'should allow access to the shelf' do
+        permission.path[:shelf][1234].permitted?.must_equal true
+      end
+    end
   end
 
   describe 'admin user with one banned bookcase' do
@@ -53,6 +63,26 @@ describe 'application issues' do
 
     it 'should allow access for a user and a random id' do
       permission.permitted?.must_equal true
+    end
+
+    describe 'disalowing neseted objects' do
+      before do
+        permission.path.root[:bookcase][12][:shelf][10][:pack][14].deny!
+      end
+
+      it 'should not be viewable' do
+        permission.path.root[:bookcase][12][:shelf][10][:pack][14].permitted?.must_equal false
+      end
+    end
+
+    describe 'disalowing a user' do
+      before do
+        permission.path.root[:user][12].deny!
+      end
+
+      it 'should prevent access to user 12' do
+        permission.path.root[:user][12].permitted?.must_equal false
+      end
     end
 
   end

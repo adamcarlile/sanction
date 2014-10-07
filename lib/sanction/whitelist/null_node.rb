@@ -8,6 +8,20 @@ module Sanction
         a.all?
       end
 
+      def allow!
+        ancestors.reject(&:persisted?).each(&:allow!)
+        @parent.resources << type
+        @parent.resources.uniq!
+        @parent.add_subject({
+          id:   id,
+          type: type
+        })
+      end
+
+      def deny!
+        false
+      end
+
       def persisted?
         false
       end

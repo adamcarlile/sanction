@@ -7,6 +7,16 @@ module Sanction
         root? ? true : (@parent[type].permitted? && @parent[type].allowed_ids.include?(id))
       end
 
+      def allow!
+        @parent.resources.reject! {|x| x == type } unless @parent[type].count > 1
+        unlink
+        true
+      end
+
+      def deny!
+        false
+      end
+
       def whitelist?
         false
       end
