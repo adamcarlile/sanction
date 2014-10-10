@@ -13,7 +13,7 @@ module Sanction
 
       def deny!
         @parent.resources << type
-        @parent.uniq!
+        @parent.resources.uniq!
         unlink
         true
       end
