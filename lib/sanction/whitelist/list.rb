@@ -1,6 +1,6 @@
 module Sanction
   module Whitelist
-    class Array < Sanction::SearchableArray
+    class List < Sanction::AttachedList
 
       def allowed_ids
         (wildcard_resource? || resources.include?(@key)) ? entries.map {|x| x.id} : []

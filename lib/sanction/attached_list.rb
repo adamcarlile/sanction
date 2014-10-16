@@ -1,10 +1,14 @@
 module Sanction
-  class SearchableArray < Array
+  class AttachedList < SimpleDelegator
 
     attr_accessor :key, :parent
 
+    def initialize(array = [])
+      super(array)
+    end
+
     def [](index)
-      entries.detect {|x| x.id == index} || wildcard_member || null_node_class.new({id: index, type: key, scope: []}, @parent)
+      detect {|x| x.id == index} || wildcard_member || null_node_class.new({id: index, type: key, scope: []}, @parent)
     end
 
     def type
@@ -15,12 +19,20 @@ module Sanction
       denied_ids.blank? && allowed_ids.blank?
     end
 
+    def denied_ids
+      []
+    end
+
+    def allowed_ids
+      []
+    end
+
     def has_scope? scope
       @parent.has_scope? scope
     end
 
     def wildcard_member
-      entries.detect {|x| x.wildcarded? }
+      detect {|x| x.wildcarded? }
     end
 
     def wildcarded?

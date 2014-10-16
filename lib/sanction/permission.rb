@@ -22,6 +22,10 @@ module Sanction
       end
     end
 
+    def persisted?
+      path.persisted?
+    end
+
     def permitted?
       path.permitted?
     end

@@ -1,6 +1,6 @@
 module Sanction
   module Blacklist
-    class Array < Sanction::SearchableArray
+    class List < Sanction::AttachedList
 
       def allowed_ids
         []

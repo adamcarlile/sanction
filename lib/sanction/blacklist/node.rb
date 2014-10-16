@@ -30,11 +30,11 @@ module Sanction
       end
 
       def array_class
-        Sanction::Blacklist::Array
+        Sanction::Blacklist::List
       end
 
       def null_array_class
-        Sanction::Blacklist::NullArray
+        Sanction::Blacklist::NullList
       end
 
     end

@@ -27,7 +27,7 @@ module Sanction
       end
 
       def array_class
-        Sanction::Whitelist::NullArray
+        Sanction::Whitelist::NullList
       end
 
       alias :null_array_class :array_class

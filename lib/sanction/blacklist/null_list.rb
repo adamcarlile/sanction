@@ -1,6 +1,6 @@
 module Sanction
   module Blacklist
-    class NullArray < Sanction::Blacklist::Array
+    class NullList < Sanction::Blacklist::List
 
       def permitted?
         return false if wildcard_resource?
