@@ -37,14 +37,14 @@ Sanction is designed to be as flexible as possible, allowing various scopes to b
 * __Type__: The Type of object in this graph, again it is optional, root nodes will have a nil type.
 * __Mode__: The mode of operation for the subjects and resources arrays:
   * Whitelist:
-    * Objects that exist are allowed, others are denied
-    * A blank array is an implicit *DENY ALL* children
+    * Objects that exist in the subjects array are allowed, others are denied
+    * A blank array is an implicit *DENY ALL* subjects
   * Blacklist:
-    * Objects that exist are denied, others are allowed
-    * A blank array is an implicit *ALLOW ALL*
+    * Objects that exist in the subjects array are denied, others are allowed
+    * A blank array is an implicit *ALLOW ALL* subjects
 * __Scope__: An array of 'actions' that can be performed on the object, this can be anything, 'read', 'write', 'testing' etc.
 * __Resources__: Resources are subject to the mode, blacklist is to exclude these resources from being accessed, whitelist being the opposite.
-  * Resources allows/denies will always take presedence over objects in the subjects array
+  * Resources allows/denies will always take precedence over objects in the subjects array
 * __Subjects__: An array that contains more of these objects, subject to the whitelist/blacklist mode of operation
 
 ### Interface
@@ -111,13 +111,13 @@ perms[:user][1].unlink
 perms[:user][1].permitted?   # => false
 ```
 
-One caviate is that for nodes that have a deny on a specific resource type, even if you add it in the graph it will still return false, ensure you either remove/add the resource type to the resources array, or ensure that a whitelisted node has a wildcard("*").
+One caveat is that for nodes that have a deny on a specific resource type, even if you add it in the graph it will still return false, ensure you either remove/add the resource type to the resources array, or ensure that a whitelisted node has a wildcard("*").
 
 The best bit is that the objects don't have to exist in the graph to be queried against, it just relies on the last fragment it could find and applies the rule that was set there.
 
 ```ruby
 perms.whitelist? # => true
-perms[:bookcase][1][shelf][12][book][3].permitted? # => false
+perms[:bookcase][1][:shelf][12][:book][3].permitted? # => false
 ```
 
 ## Contributing
