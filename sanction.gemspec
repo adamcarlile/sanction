@@ -6,11 +6,11 @@ require 'sanction/version'
 Gem::Specification.new do |spec|
   spec.name          = "sanction"
   spec.version       = Sanction::VERSION
-  spec.authors       = ["Adam Carlile"]
-  spec.email         = ["adam.carlile@boardintelligence.co.uk"]
-  spec.summary       = %q{TODO: Write a short summary. Required.}
-  spec.description   = %q{TODO: Write a longer description. Optional.}
-  spec.homepage      = ""
+  spec.authors       = ["Adam Carlile", "John Maxwell"]
+  spec.email         = ["adam.carlile@boardintelligence.co.uk", "john.maxwell@boardintelligence.co.uk"]
+  spec.summary       = "A permissions gem for people who love JSON"
+  spec.description   = "Provides a JSON format for describing complex nested permission sets"
+  spec.homepage      = "http://github.com/boardiq/sanction"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0")
