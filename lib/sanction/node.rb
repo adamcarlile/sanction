@@ -93,6 +93,15 @@ module Sanction
       @scope = [scope].flatten.compact.map(&:to_sym)
     end
 
+    def add_scope(scope)
+      @scope << scope.to_sym
+      sanitize_scope!
+    end
+
+    def remove_scope(scope)
+      @scope.reject! {|x| x == scope.to_sym }
+    end
+
     def resources
       return [] if (@resources.blank? && root?)
       @resources.blank? ? parent.resources : @resources
@@ -121,6 +130,10 @@ module Sanction
     alias :subjects :children
 
     private
+
+      def sanitize_scope!
+        @scope = @scope.flatten.compact.uniq.map(&:to_sym)
+      end
 
       def process_hash(hash)
         @id         = hash[:id]
