@@ -86,21 +86,21 @@ module Sanction
     end
 
     def scope
+      return @scope if (parent.blank? && root?)
       @scope.blank? ? parent.scope : @scope
     end
     
-    def scope=(scope)
-      @scope = [scope].flatten.compact.map(&:to_sym)
+    def scope=(attribute)
+      @scope = [attribute].flatten.compact.map(&:to_sym)
     end
 
-    def add_scope(scope)
-      binding.pry
-      @scope << scope.to_sym
+    def add_scope(attribute)
+      @scope << attribute.to_sym
       sanitize_scope!
     end
 
-    def remove_scope(scope)
-      @scope.reject! {|x| x == scope.to_sym }
+    def remove_scope(attribute)
+      @scope.reject! {|x| x == attribute.to_sym }
     end
 
     def resources
