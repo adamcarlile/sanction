@@ -14,8 +14,7 @@ module Sanction
         @parent.resources.uniq!
         @parent.add_subject({
           id:   id,
-          type: type,
-          scope: []
+          type: type
         })
       end
 
