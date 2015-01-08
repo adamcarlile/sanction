@@ -94,6 +94,7 @@ module Sanction
     end
 
     def add_scope(scope)
+      binding.pry
       @scope << scope.to_sym
       sanitize_scope!
     end
@@ -137,7 +138,7 @@ module Sanction
 
       def process_hash(hash)
         @id         = hash[:id]
-        @scope      = hash[:scope].map(&:to_sym) unless hash[:scope].blank?
+        @scope      = [hash[:scope]].flatten.compact.map(&:to_sym) 
         @type       = hash[:type].to_sym if hash[:type]
         @resources  = []
         @resources  += hash[:resources].map(&:to_sym) unless hash[:resources].blank?
