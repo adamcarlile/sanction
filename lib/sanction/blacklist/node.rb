@@ -13,6 +13,10 @@ module Sanction
         true
       end
 
+      def scope
+        permitted? ? super : []
+      end
+
       def deny!
         false
       end

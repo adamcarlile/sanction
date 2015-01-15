@@ -11,6 +11,10 @@ module Sanction
         false
       end
 
+      def scope
+        permitted? ? super : []
+      end
+
       def deny!
         @parent.resources << type
         @parent.resources.uniq!
