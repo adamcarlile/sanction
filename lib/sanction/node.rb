@@ -89,12 +89,13 @@ module Sanction
       return @scope if (parent.blank? && root?)
       @scope.blank? ? parent.scope : @scope
     end
-    
+
     def scope=(attribute)
       @scope = [attribute].flatten.compact.map(&:to_sym)
     end
 
     def add_scope(attribute)
+      clone_scope! if @scope.blank?
       @scope << attribute.to_sym
       sanitize_scope!
     end
@@ -131,6 +132,10 @@ module Sanction
     alias :subjects :children
 
     private
+
+      def clone_scope!
+        @scope = parent.scope.dup
+      end
 
       def sanitize_scope!
         @scope = @scope.flatten.compact.uniq.map(&:to_sym)
