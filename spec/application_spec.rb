@@ -41,6 +41,26 @@ describe 'application issues' do
         permission.path[:shelf][1234].permitted?.must_equal true
       end
     end
+
+    describe "allowing deeply nested objects" do
+      before do
+        permission.path[:shelf][1234][:pack][12].allow!
+      end
+
+      it 'should allow access to the pack' do
+        permission.path[:shelf][1234][:pack][12].permitted?.must_equal true
+      end
+    end
+
+    describe "denying deeply nested objects" do
+      before do
+        permission.path[:shelf][1234][:pack][12].deny!
+      end
+      
+      it 'should allow access to the pack' do
+        permission.path[:shelf][1234][:pack][12].permitted?.must_equal false
+      end
+    end
   end
 
   describe 'admin user with one banned bookcase' do

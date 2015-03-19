@@ -10,6 +10,7 @@ module Sanction
 
       def allow!
         ancestors.reject(&:persisted?).each(&:allow!)
+        @parent = root.find(@parent.type, @parent.id) unless @parent.persisted?
         @parent.resources << type
         @parent.resources.uniq!
         @parent.add_subject({
