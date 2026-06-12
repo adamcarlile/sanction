@@ -7,7 +7,7 @@ Gem::Specification.new do |spec|
   spec.name          = "sanction"
   spec.version       = Sanction::VERSION
   spec.authors       = ["Adam Carlile", "John Maxwell"]
-  spec.email         = ["adam.carlile@boardintelligence.co.uk", "john.maxwell@boardintelligence.co.uk"]
+  spec.email         = ["hello@adamcarlile.com"]
   spec.summary       = "A permissions gem for people who love JSON"
   spec.description   = "Provides a JSON format for describing complex nested permission sets"
   spec.homepage      = "https://github.com/adamcarlile/sanction"
