@@ -41,11 +41,11 @@ describe 'Wildcarding' do
     let(:predicates) { [user] }
 
     it 'should be permitted' do
-      permission.permitted?.must_equal true
+      _(permission.permitted?).must_equal true
     end
 
     it 'should have the scope of manage' do
-      permission.permitted_with_scope?(:manage).must_equal true
+      _(permission.permitted_with_scope?(:manage)).must_equal true
     end
 
     describe 'nested block' do
@@ -53,14 +53,14 @@ describe 'Wildcarding' do
       let(:predicates) { [user, bookcase] }
 
       it 'should not be permitted' do
-        permission.permitted?.must_equal false
+        _(permission.permitted?).must_equal false
       end
 
       describe 'with a pack' do
         let(:pack) { Pack.new(1) }
         let(:predicates) { [user, bookcase, pack] }
         it 'should not be permitted' do
-          permission.permitted?.must_equal false
+          _(permission.permitted?).must_equal false
         end
       end
 
@@ -89,7 +89,7 @@ describe 'Wildcarding' do
     let(:predicates) { [user] }
 
     it 'should not be permitted' do
-      permission.permitted?.must_equal false
+      _(permission.permitted?).must_equal false
     end
   end
 end

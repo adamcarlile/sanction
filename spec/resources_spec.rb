@@ -48,7 +48,7 @@ describe 'Nodes with resource restrictions' do
       let(:predicates) { [Bookcase.new(6), Shelf]}
 
       it 'should allow shelves' do
-        permission.permitted?.must_equal true
+        _(permission.permitted?).must_equal true
       end
     end
 
@@ -56,7 +56,7 @@ describe 'Nodes with resource restrictions' do
       let(:predicates) { [Bookcase.new(3), Pack] }
 
       it 'should not allow packs' do
-        permission.permitted?.must_equal false
+        _(permission.permitted?).must_equal false
       end
     end
 
@@ -64,7 +64,7 @@ describe 'Nodes with resource restrictions' do
       let(:predicates) { [Bookcase] }
 
       it 'should allow bookcases' do
-        permission.permitted?.must_equal true
+        _(permission.permitted?).must_equal true
       end
     end
 
@@ -72,7 +72,7 @@ describe 'Nodes with resource restrictions' do
       let(:predicates) { [Shelf] }
 
       it 'should not allow shelves' do
-        permission.permitted?.must_equal false
+        _(permission.permitted?).must_equal false
       end
     end
 
@@ -95,7 +95,7 @@ describe 'Nodes with resource restrictions' do
     end
 
     it 'should not return the bookcase ids' do
-      permission.path[:bookcase].denied_ids.must_equal [6]
+      _(permission.path[:bookcase].denied_ids).must_equal [6]
     end
   end
 
@@ -116,7 +116,7 @@ describe 'Nodes with resource restrictions' do
     end
 
     it 'should not return the bookcase ids' do
-      permission.path[:bookcase].allowed_ids.must_equal []
+      _(permission.path[:bookcase].allowed_ids).must_equal []
     end
 
   end
@@ -141,7 +141,7 @@ describe 'Nodes with resource restrictions' do
       let(:predicates) { [Bookcase] }
 
       it 'should allow bookcases' do
-        permission.permitted?.must_equal true
+        _(permission.permitted?).must_equal true
       end
     end
 
@@ -149,7 +149,7 @@ describe 'Nodes with resource restrictions' do
       let(:predicates) { [Shelf] }
 
       it 'should not allow shelves' do
-        permission.permitted?.must_equal false
+        _(permission.permitted?).must_equal false
       end
     end
     

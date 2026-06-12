@@ -29,22 +29,22 @@ describe Sanction::Permission do
     let(:predicates)  { [bookcase] }
 
     it 'should be permitted' do
-      permission.permitted?.must_equal true
+      _(permission.permitted?).must_equal true
     end
 
     it 'should have scope manage' do
-      permission.permitted_with_scope?(:manage).must_equal true
+      _(permission.permitted_with_scope?(:manage)).must_equal true
     end
 
     it 'should have scope read' do
-      permission.permitted_with_scope?(:read).must_equal true
+      _(permission.permitted_with_scope?(:read)).must_equal true
     end
 
     describe 'With a class predicate' do
       let(:predicates) { [Shelf] }
 
       it 'should not be permitted' do
-        permission.permitted?.must_equal false
+        _(permission.permitted?).must_equal false
       end
 
     end
@@ -68,22 +68,22 @@ describe Sanction::Permission do
     let(:predicates)  { [bookcase] }
 
     it 'should not be permitted' do
-      permission.permitted?.must_equal false
+      _(permission.permitted?).must_equal false
     end
 
     it 'should not be permitted for a scope of manage' do
-      permission.permitted_with_scope?(:manage).must_equal false
+      _(permission.permitted_with_scope?(:manage)).must_equal false
     end
 
     describe 'With a class predicate not blacklisted' do
       let(:predicates) { [Shelf] }
 
       it 'should be permitted' do
-        permission.permitted?.must_equal true
+        _(permission.permitted?).must_equal true
       end
 
       it 'should be permitted with a scope of manage' do
-        permission.permitted_with_scope?(:manage).must_equal true
+        _(permission.permitted_with_scope?(:manage)).must_equal true
       end
 
     end
@@ -103,7 +103,7 @@ describe Sanction::Permission do
         let(:predicates)  { [bookcase, shelf, pack] }
 
         it 'should not be permitted' do
-          permission.permitted?.must_equal false
+          _(permission.permitted?).must_equal false
         end
 
       end
@@ -113,12 +113,12 @@ describe Sanction::Permission do
         let(:predicates) { [bookcase, shelf, pack] }
 
         it 'should be permitted' do
-          permission.permitted?.must_equal true
+          _(permission.permitted?).must_equal true
         end
 
         it 'should have its parents scopes' do
-          permission.permitted_with_scope?(:manage).must_equal true
-          permission.permitted_with_scope?(:read).must_equal true
+          _(permission.permitted_with_scope?(:manage)).must_equal true
+          _(permission.permitted_with_scope?(:read)).must_equal true
         end
 
       end
@@ -129,7 +129,7 @@ describe Sanction::Permission do
       let(:shelf)    { Shelf.new(4) }
 
       it 'should be permitted' do
-        permission.permitted?.must_equal true
+        _(permission.permitted?).must_equal true
       end
 
       describe "with a whitelisted pack" do
@@ -137,12 +137,12 @@ describe Sanction::Permission do
         let(:predicates) { [bookcase, shelf, pack] }
 
         it 'should be permitted' do
-          permission.permitted?.must_equal true
+          _(permission.permitted?).must_equal true
         end
 
         it 'should have a read and manage scope' do
-          permission.permitted_with_scope?(:manage).must_equal true
-          permission.permitted_with_scope?(:read).must_equal true
+          _(permission.permitted_with_scope?(:manage)).must_equal true
+          _(permission.permitted_with_scope?(:read)).must_equal true
         end
 
       end
@@ -158,7 +158,7 @@ describe Sanction::Permission do
     let(:predicates)        { [bookcase, shelf] }
 
     it 'should not allow the shelf to be permitted' do
-      permission.permitted?.must_equal false
+      _(permission.permitted?).must_equal false
     end
 
   end
@@ -172,7 +172,7 @@ describe Sanction::Permission do
       let(:shelf)     { Shelf.new(6) }
 
       it 'should not be permitted' do
-        permission.permitted?.must_equal false
+        _(permission.permitted?).must_equal false
       end
 
       describe "with a pack within a blacklisted shelf" do
@@ -180,11 +180,11 @@ describe Sanction::Permission do
         let(:predicates)  { [bookcase, shelf, pack] }
 
         it 'should not be permitted' do
-          permission.permitted?.must_equal false
+          _(permission.permitted?).must_equal false
         end
 
         it 'should not have a read scope' do
-          permission.permitted_with_scope?(:read).must_equal false
+          _(permission.permitted_with_scope?(:read)).must_equal false
         end
 
       end
@@ -195,7 +195,7 @@ describe Sanction::Permission do
       let(:shelf)     { Shelf.new(31) }
 
       it 'should be permitted' do
-        permission.permitted?.must_equal true
+        _(permission.permitted?).must_equal true
       end
 
       describe 'with a non blacklisted pack' do
@@ -203,11 +203,11 @@ describe Sanction::Permission do
         let(:predicates)  { [bookcase, shelf, pack] }
 
         it 'should be permitted' do
-          permission.permitted?.must_equal true
+          _(permission.permitted?).must_equal true
         end
 
         it 'should have a read scope' do
-          permission.permitted_with_scope?(:read).must_equal true
+          _(permission.permitted_with_scope?(:read)).must_equal true
         end
 
       end
