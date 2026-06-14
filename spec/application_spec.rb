@@ -29,7 +29,7 @@ describe 'application issues' do
     let(:predicates) { [Bookcase.new('948b9ace-784f-4326-aeb9-a2a0587d75b9')] }
 
     it 'should not allow access to any shelves' do
-      permission.path[:shelf].permitted?.must_equal false
+      _(permission.path[:shelf].permitted?).must_equal false
     end
 
     describe "allowing a new shelf" do
@@ -38,7 +38,7 @@ describe 'application issues' do
       end
 
       it 'should allow access to the shelf' do
-        permission.path[:shelf][1234].permitted?.must_equal true
+        _(permission.path[:shelf][1234].permitted?).must_equal true
       end
     end
 
@@ -48,7 +48,7 @@ describe 'application issues' do
       end
 
       it 'should allow access to the pack' do
-        permission.path[:shelf][1234][:pack][12].permitted?.must_equal true
+        _(permission.path[:shelf][1234][:pack][12].permitted?).must_equal true
       end
     end
 
@@ -58,7 +58,7 @@ describe 'application issues' do
       end
       
       it 'should allow access to the pack' do
-        permission.path[:shelf][1234][:pack][12].permitted?.must_equal false
+        _(permission.path[:shelf][1234][:pack][12].permitted?).must_equal false
       end
     end
   end
@@ -82,7 +82,7 @@ describe 'application issues' do
     let(:predicates) { [User.new(32)] }
 
     it 'should allow access for a user and a random id' do
-      permission.permitted?.must_equal true
+      _(permission.permitted?).must_equal true
     end
 
     describe 'disalowing neseted objects' do
@@ -91,7 +91,7 @@ describe 'application issues' do
       end
 
       it 'should not be viewable' do
-        permission.path.root[:bookcase][12][:shelf][10][:pack][14].permitted?.must_equal false
+        _(permission.path.root[:bookcase][12][:shelf][10][:pack][14].permitted?).must_equal false
       end
     end
 
@@ -101,7 +101,7 @@ describe 'application issues' do
       end
 
       it 'should prevent access to user 12' do
-        permission.path.root[:user][12].permitted?.must_equal false
+        _(permission.path.root[:user][12].permitted?).must_equal false
       end
     end
 

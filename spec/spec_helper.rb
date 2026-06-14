@@ -1,9 +1,7 @@
 require 'sanction'
-require 'awesome_print'
-require 'pry'
 
-require 'minitest/spec'
 require 'minitest/autorun'
+require 'minitest/spec'
 require 'minitest/pride'
 
 class Bookcase
