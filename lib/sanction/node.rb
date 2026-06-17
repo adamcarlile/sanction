@@ -1,6 +1,7 @@
 module Sanction
   class Node
     include Tree
+    include Composable
 
     attr_reader :id, :type
 

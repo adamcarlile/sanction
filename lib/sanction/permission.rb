@@ -27,11 +27,19 @@ module Sanction
     end
 
     def permitted?
+      return @graph.permitted?(@predicates) if composite?
       path.permitted?
     end
 
     def permitted_with_scope?(scope)
+      return @graph.permitted_with_scope?(scope, @predicates) if composite?
       permitted? && path.has_scope?(scope)
+    end
+
+    private
+
+    def composite?
+      @graph.respond_to?(:composite?) && @graph.composite?
     end
 
   end

@@ -120,6 +120,32 @@ perms.whitelist? # => true
 perms[:bookcase][1][:shelf][12][:book][3].permitted? # => false
 ```
 
+### Composing graphs
+
+Sometimes an effective permission is the combination of several independent
+graphs — for example a graph for what an organisation is entitled to, a graph
+for what a member's role grants, and a graph for a platform-level override. Use
+`#and` (intersection) and `#or` (union) to combine whole graphs; each returns a
+new composite graph that you can query exactly like any other.
+
+```ruby
+effective = org.and(role).or(admin)
+Sanction::Permission.new(effective, track).permitted?            # => true/false
+Sanction::Permission.new(effective, track).permitted_with_scope?(:read)
+```
+
+A composite evaluates each member against the same predicates and folds the
+results: `#and` permits only when every member permits, `#or` permits when any
+member does. Composites are themselves composable, so chains nest to any depth.
+
+Chaining is left-associative with no AND-over-OR precedence:
+
+```ruby
+a.and(b).or(c)   # => (a AND b) OR c
+a.or(b).and(c)   # => (a OR b) AND c
+a.or(b.and(c))   # => a OR (b AND c)   — nest a chain to group explicitly
+```
+
 ## Contributing
 
 1. Fork it ( https://github.com/boardiq/sanction/fork )

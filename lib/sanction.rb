@@ -8,6 +8,8 @@ module Sanction
   autoload :Tree,            'sanction/tree'
   autoload :Node,            'sanction/node'
   autoload :Permission,      'sanction/permission'
+  autoload :Composable,      'sanction/composable'
+  autoload :Composite,       'sanction/composite'
 
   module Whitelist
     autoload :List,      'sanction/whitelist/list'
