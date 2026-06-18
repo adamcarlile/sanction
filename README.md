@@ -148,7 +148,7 @@ a.or(b.and(c))   # => a OR (b AND c)   — nest a chain to group explicitly
 
 ## Contributing
 
-1. Fork it ( https://github.com/boardiq/sanction/fork )
+1. Fork it ( https://github.com/adamcarlile/sanction/fork )
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
